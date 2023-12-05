@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://b57scdeufjecf"]
+
+[ext_resource type="Script" path="res://Scripts/Level_1.gd" id="1_bqbob"]
+[ext_resource type="Texture2D" uid="uid://04dny1gd7v6l" path="res://Assets/Tiles/Ground_tile.png" id="2_iy0y5"]
+[ext_resource type="Texture2D" uid="uid://dfn0245f6miii" path="res://Assets/Tiles/Background_tile.png" id="3_n3mon"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_euh5g"]
+texture = ExtResource("2_iy0y5")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ifqgl"]
+texture = ExtResource("3_n3mon")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_yqfo7"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_ifqgl")
+sources/0 = SubResource("TileSetAtlasSource_euh5g")
+
+[node name="Level_1" type="Node2D"]
+script = ExtResource("1_bqbob")
+
+[node name="Rooms" type="Node" parent="."]
+
+[node name="TileMap" type="TileMap" parent="."]
+show_behind_parent = true
+tile_set = SubResource("TileSet_yqfo7")
+cell_quadrant_size = 32
+format = 2
+layer_1/name = ""
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.2, 0.2)

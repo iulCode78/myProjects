@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1b8u5bxpkyid"]
+
+[ext_resource type="Script" path="res://Scripts/Splash_Screen.gd" id="1_jya3e"]
+
+[node name="Splash_Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jya3e")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 640.0
+color = Color(0.596078, 0.607843, 0.635294, 1)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 320.0
+offset_right = 1056.0
+offset_bottom = 347.0

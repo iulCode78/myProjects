@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://qmnjhm6ntynu"]
+
+[ext_resource type="Texture2D" uid="uid://c1f811vvn6td" path="res://Assets/Sprites/Test_Dummy.png" id="1_25jwc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3i2x0"]
+size = Vector2(33, 35)
+
+[node name="TestDummy" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(86, 76)
+texture = ExtResource("1_25jwc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_3i2x0")

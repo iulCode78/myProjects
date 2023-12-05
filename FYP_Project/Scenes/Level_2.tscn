@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://bj72habbwfbfj"]
+
+[ext_resource type="Script" path="res://Scripts/Level_2.gd" id="1_4edun"]
+[ext_resource type="Texture2D" uid="uid://04dny1gd7v6l" path="res://Assets/Tiles/Ground_tile.png" id="2_jxben"]
+[ext_resource type="Texture2D" uid="uid://dfn0245f6miii" path="res://Assets/Tiles/Background_tile.png" id="3_0ij0i"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qtbe0"]
+texture = ExtResource("2_jxben")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nuwpy"]
+texture = ExtResource("3_0ij0i")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_pe3ir"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_qtbe0")
+sources/1 = SubResource("TileSetAtlasSource_nuwpy")
+
+[node name="Level 2" type="Node2D"]
+script = ExtResource("1_4edun")
+
+[node name="Rooms" type="Node" parent="."]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_pe3ir")
+cell_quadrant_size = 32
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.2, 0.2)
