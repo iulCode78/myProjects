@@ -1,26 +1,23 @@
 extends Control
-
-@export var Game_Manager : GameManager
-
-func _ready():
-	hide()
-	Game_Manager.connect("toggle_game_paused", on_game_manager_paused)
 	
-func _process(delta):
-	pass
+var is_paused : bool = false:
+	set = set_paused
 	
-func on_game_manager_paused(is_paused : bool):
-	if(is_paused):
-		show()
-	else:
-		hide()
-	
-func _on_continue_pressed():
-	Game_Manager.game_paused = false
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		is_paused = !is_paused
+		#get_tree().change_scene_to_file("res://Scenes/Pause_Menu.tscn")
+		
+func set_paused(value : bool) -> void:
+	is_paused = value
+	get_tree().paused = is_paused
+	visible = is_paused
+		
+func _on_continue_pressed() -> void:
+	is_paused = false
 
 func _on_quit_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Main_Menu.tscn")
-	Game_Manager.game_paused = false
 
 func _on_desktop_pressed():
 	get_tree().quit()

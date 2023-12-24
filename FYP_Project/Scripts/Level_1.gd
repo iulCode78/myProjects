@@ -85,6 +85,8 @@ func _input(event):
 	#if event.is_action_pressed('make map'):
 		#make_map()
 	# Spacebar restarts and creates a new set of rooms
+	if event.is_action_pressed("pause"):
+		get_tree().change_scene_to_file("res://Scenes/Pause_Menu.tscn")
 	if event.is_action_pressed('ui_select'):
 		if play_mode:
 			player.queue_free()

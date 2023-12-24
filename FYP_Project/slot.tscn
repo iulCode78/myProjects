@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy5ruuaeump6e"]
+
+[ext_resource type="Script" path="res://Slot.gd" id="1_muumg"]
+
+[node name="Slot" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_muumg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
