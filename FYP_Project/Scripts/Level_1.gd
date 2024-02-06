@@ -6,7 +6,6 @@ var Room = preload("res://Scenes/Room.tscn")
 var Player = preload("res://Scenes/Player.tscn")
 var Enemy = preload("res://Scenes/TestDummy.tscn")
 var exitDoor = preload("res://Scenes/Door.tscn")
-var font
 @onready var map = $TileMap
 
 var tile_size = 32
@@ -24,14 +23,10 @@ var player = null
 var enemy = null
 var exit = null
 
-@export var enemy_room_chance : float = 0.3
-var enemy_rooms : Array = []
-
 func _ready():
 	randomize()
 	make_rooms()
 	#make_map()
-	font = ThemeDB.fallback_font;
 	
 func make_rooms():
 	for i in range(num_rooms):
@@ -58,10 +53,6 @@ func make_rooms():
 	make_map()
 
 func _draw():
-	#if start_room:
-		#draw_string(font, start_room.position - Vector2(125, 0), "start")
-	#if end_room:
-		#draw_string(font, end_room.position - Vector2(125, 0), "end")
 	if play_mode:
 		return
 	for room in $Rooms.get_children():
@@ -77,16 +68,9 @@ func _process(delta):
 	queue_redraw()
 	
 func _input(event):
-	#if event.is_action_pressed('ui_select'):
-		#for n in $Rooms.get_children():
-			#n.queue_free()
-		#path = null
-		#make_rooms()
-	#if event.is_action_pressed('make map'):
-		#make_map()
 	# Spacebar restarts and creates a new set of rooms
-	if event.is_action_pressed("pause"):
-		get_tree().change_scene_to_file("res://Scenes/Pause_Menu.tscn")
+	#if event.is_action_pressed("pause"):
+		#get_tree().change_scene_to_file("res://Scenes/Pause_Menu.tscn")
 	if event.is_action_pressed('ui_select'):
 		if play_mode:
 			player.queue_free()
@@ -106,21 +90,25 @@ func _input(event):
 		make_map()
 	# Esc spawns a player to explore the map
 	#if event.is_action_pressed('ui_cancel'):
-func add_player_and_exit():
+#Spawns the player
+func add_player():
 	player = Player.instantiate()
 	add_child(player)
 	player.position = start_room.position
+	play_mode = true
+
+#Spawns the exit
+func add_exit():
 	exit = exitDoor.instantiate()
 	add_child(exit)
 	exit.position = end_room.position
 	play_mode = true
-	
+
+#Spawns the enemy
 func add_enemy():
-	#for room in $Rooms.get_children():
-		enemy = Enemy.instantiate()
-		add_child(enemy)
-		enemy.position = Vector2(randi() % -101, randi() % 101)
-		play_mode = true
+	enemy = Enemy.instantiate()
+	add_child(enemy)
+	play_mode = true
 	
 func find_mst(nodes):
 	# Prim's Algorithm
@@ -153,6 +141,7 @@ func make_map():
 	map.clear()
 	find_start_room()
 	find_end_room()
+	find_enemy_room()
 	
 	# Fill tilemap with walls, then carve empty rooms
 	var full_rect = Rect2()
@@ -186,8 +175,8 @@ func make_map():
 				carve_path(start, end)
 		corridor.append(p)
 		room.get_node("CollisionShape2D").disabled = true
-	add_player_and_exit()
-	add_enemy()
+	add_player()
+	add_exit()
 				
 func carve_path(start, end):
 	# Carve a path between two points
@@ -230,3 +219,8 @@ func find_end_room():
 		if room.position.x > max_x:
 			end_room = room
 			max_x = room.position.x
+			
+func find_enemy_room():
+	for room in $Rooms.get_children():
+		if randf() > cull:
+			add_enemy()
